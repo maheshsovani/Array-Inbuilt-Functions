@@ -16,6 +16,10 @@ const perfectSquare = function(number){
   return  Math.sqrt(number)*Math.sqrt(number) == number;
 }
 
+const sum = function(number1,number2){return number1+number2}
+
+const greater = function(number1,number2){return Math.max(number1,number2)}
+
 describe("Mapper function",function(){
   it("should return array by adding five to element",function(){
     assert.deepStrictEqual(mapper(addFive,[1,2,3]),[6,7,8]);
@@ -52,3 +56,20 @@ describe("Filter function", function(){
   });
 });
 
+describe("reducer function", function(){
+  it("should return greatest number in given array",function(){
+  assert.deepStrictEqual(reducer(greater,[1,2,3]),3);
+  });
+
+  it("should return greatest number in given array",function(){
+  assert.deepStrictEqual(reducer(greater,[1,2,3],7),7);
+  });
+
+  it("should return sum of all array elements ",function(){
+  assert.deepStrictEqual(reducer(sum,[1,2,3]),6);
+  });
+
+  it("should return sum of all array elements ",function(){
+  assert.deepStrictEqual(reducer(sum,[1,2,3],7),13);
+  });
+});
