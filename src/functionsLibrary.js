@@ -17,16 +17,17 @@ const filter = function (predicate,array){
 }
 
 
-const reduce = function (reducer,array,initialValue = 0){
+const reduce = function (reducer,array,initialValue){
+  let result = initialValue;
   let startingIndex = 0;
-  if(!initialValue){
-    initialValue = array[0];
+  if(initialValue == undefined){
+    result = array[0];
     startingIndex = 1;
   }
   for(let index = startingIndex ; index<array.length ; index++){
-    initialValue = reducer(initialValue,array[index])
+    result = reducer(result,array[index])
   }
-  return initialValue;
+  return result;
 }
 
 exports.map = map;

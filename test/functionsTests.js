@@ -6,6 +6,10 @@ const square = function(number){return number*number}
 
 const identity = function(element){return element}
 
+const returnOne = function(element){return 1}
+
+const returnZero = function(element){return 0}
+
 const decrement = function(number){return number - 1}
 
 const isOdd = function(number){return number%2 != 0}
@@ -33,43 +37,49 @@ describe("Map function",function(){
 });
 
 describe("Filter function", function(){
-  it("empty array should return empty array",function(){
+  it("given empty array should return empty array",function(){
     assert.deepStrictEqual(filter(isOdd,[]),[]);
   });
 
-  it("array with one element should return empty array",function(){
+  it("given array with one element should return empty array",function(){
     assert.deepStrictEqual(filter(isOdd,[2]),[]);
   });
 
-  it("array with multiple element should return array with multiple element",function(){
+  it("given array with multiple element should return array with multiple element",function(){
     assert.deepStrictEqual(filter(isOdd,[1,2,3,4,5,6]),[1,3,5]);
   });
 
-  it("array with zero should return empty array",function(){
+  it("given array with zero should return empty array",function(){
     assert.deepStrictEqual(filter(isOdd,[0]),[]);
+  });
+
+  it("given array with multiple elements should return empty array",function(){
+    assert.deepStrictEqual(filter(returnZero,[1,2,3,4,5,6]),[]);
+  });
+
+  it("given array with multiple elements should return given array as it is",function(){
+    assert.deepStrictEqual(filter(returnOne,[1,2,3,4,5,6]),[1,2,3,4,5,6]);
   });
 });
 
 describe("reduce function", function(){
   it("empty array should return nothing",function(){
-  assert.deepStrictEqual(reduce(greater,[]),);
+  assert.equal(reduce(greater,[]));
   });
 
   it("array with single element should return the containing element",function(){
-  assert.deepStrictEqual(reduce(greater,[3]),3);
+  assert.equal(reduce(greater,[3]),3);
   });
 
   it("array with multiple elements should return reduced value ",function(){
-  assert.deepStrictEqual(reduce(sum,[1,2,3]),6);
-  assert.deepStrictEqual(reduce(sum,[6]),6);
-  assert.deepStrictEqual(reduce(sum,[1,2,3]),6);
-  assert.deepStrictEqual(reduce(sum,[1,2,3]),6);
+  assert.equal(reduce(sum,[1,2,3]),6);
+  assert.equal(reduce(sum,[6]),6);
   });
 
   it("array with zero as an input",function(){
-  assert.deepStrictEqual(reduce(sum,[0],7),7);
-  assert.deepStrictEqual(reduce(sum,[0],0),0);
-  assert.deepStrictEqual(reduce(sum,[0,4],0),4);
-  assert.deepStrictEqual(reduce(sum,[0,4],4),8);
+  assert.equal(reduce(sum,[0],7),7);
+  assert.equal(reduce(sum,[0],0),0);
+  assert.equal(reduce(sum,[0,4],0),4);
+  assert.equal(reduce(sum,[0,4],4),8);
   });
 });
