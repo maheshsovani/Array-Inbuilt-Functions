@@ -16,7 +16,6 @@ const filter = function (predicate,array){
   return outputArray;
 }
 
-
 const reduce = function (reducer,array,initialValue){
   let result = initialValue;
   let startingIndex = 0;
