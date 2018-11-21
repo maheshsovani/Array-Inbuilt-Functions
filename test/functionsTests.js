@@ -1,8 +1,6 @@
 const library = require("../src/functionsLibrary.js")
-const {mapper,filterer,reducer} = library;
+const {map,filter,reduce} = library;
 const assert = require("assert");
-
-const addFive = function(number){return number+5}
 
 const square = function(number){return number*number}
 
@@ -12,64 +10,66 @@ const decrement = function(number){return number - 1}
 
 const isOdd = function(number){return number%2 != 0}
 
-const perfectSquare = function(number){
-  return  Math.sqrt(number)*Math.sqrt(number) == number;
-}
-
 const sum = function(number1,number2){return number1+number2}
 
 const greater = function(number1,number2){return Math.max(number1,number2)}
 
-describe("Mapper function",function(){
-  it("should return array by adding five to element",function(){
-    assert.deepStrictEqual(mapper(addFive,[1,2,3]),[6,7,8]);
+describe("Map function",function(){
+  it("empty array should return empty array",function(){
+    assert.deepStrictEqual(map(identity,[]),[]);
   });
 
-  it("should return array by squaring element",function(){
-    assert.deepStrictEqual(mapper(square,[1,2,3]),[1,4,9]);
+  it("array with one element should return mapped same element",function(){
+    assert.deepStrictEqual(map(square,[4]),[16]);
   });
 
-  it("should return given element",function(){
-    assert.deepStrictEqual(mapper(identity,[1,2,3]),[1,2,3]);
+  it("array with multiple element should return mapped elements array",function(){
+    assert.deepStrictEqual(map(identity,[1,2,3]),[1,2,3]);
   });
 
-  it("should return array by reducing one from each element",function(){
-    assert.deepStrictEqual(mapper(decrement,[1,2,3]),[0,1,2]);
+  it("array containing zero should return array with with zero mapped to mapper",function(){
+    assert.deepStrictEqual(map(decrement,[0]),[-1]);
   });
 });
 
 describe("Filter function", function(){
-  it("should return empty array",function(){
-    assert.deepStrictEqual(filterer(isOdd,[]),[]);
+  it("empty array should return empty array",function(){
+    assert.deepStrictEqual(filter(isOdd,[]),[]);
   });
 
-  it("should return array of odd numbers in given array",function(){
-    assert.deepStrictEqual(filterer(isOdd,[1,2,3]),[1,3]);
+  it("array with one element should return empty array",function(){
+    assert.deepStrictEqual(filter(isOdd,[2]),[]);
   });
 
-  it("should return empty array",function(){
-    assert.deepStrictEqual(filterer(perfectSquare,[]),[]);
+  it("array with multiple element should return array with multiple element",function(){
+    assert.deepStrictEqual(filter(isOdd,[1,2,3,4,5,6]),[1,3,5]);
   });
 
-  it("should return array of perfect square numbers in given array",function(){
-    assert.deepStrictEqual(filterer(perfectSquare,[1,2,4,16]),[1,4,16]);
+  it("array with zero should return empty array",function(){
+    assert.deepStrictEqual(filter(isOdd,[0]),[]);
   });
 });
 
-describe("reducer function", function(){
-  it("should return greatest number in given array",function(){
-  assert.deepStrictEqual(reducer(greater,[1,2,3]),3);
+describe("reduce function", function(){
+  it("empty array should return 0",function(){
+  assert.deepStrictEqual(reduce(greater,[]),0);
   });
 
-  it("should return greatest number in given array",function(){
-  assert.deepStrictEqual(reducer(greater,[1,2,3],7),7);
+  it("array with single element should return the containing element",function(){
+  assert.deepStrictEqual(reduce(greater,[3]),3);
   });
 
-  it("should return sum of all array elements ",function(){
-  assert.deepStrictEqual(reducer(sum,[1,2,3]),6);
+  it("array with multiple elements should return reduced value ",function(){
+  assert.deepStrictEqual(reduce(sum,[1,2,3]),6);
+  assert.deepStrictEqual(reduce(sum,[6]),6);
+  assert.deepStrictEqual(reduce(sum,[1,2,3]),6);
+  assert.deepStrictEqual(reduce(sum,[1,2,3]),6);
   });
 
-  it("should return sum of all array elements ",function(){
-  assert.deepStrictEqual(reducer(sum,[1,2,3],7),13);
+  it("array with zero as an input",function(){
+  assert.deepStrictEqual(reduce(sum,[0],7),7);
+  assert.deepStrictEqual(reduce(sum,[0],0),0);
+  assert.deepStrictEqual(reduce(sum,[0,4],0),4);
+  assert.deepStrictEqual(reduce(sum,[0,4],4),8);
   });
 });

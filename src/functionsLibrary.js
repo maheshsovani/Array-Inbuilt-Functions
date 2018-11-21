@@ -1,15 +1,15 @@
-const mapper = function (functionToApplied,array){
+const map = function (mapper,array){
   let outputArray = [];
   for(let element of array){
-    outputArray.push(functionToApplied (element));
+    outputArray.push(mapper (element));
   }
   return outputArray;
 }
 
-const filterer = function (functionToApplied,array){
+const filter = function (predicate,array){
   let outputArray = [];
   for(let element of array){
-    if(functionToApplied (element)){
+    if(predicate (element)){
       outputArray.push(element)
     }
   }
@@ -17,15 +17,15 @@ const filterer = function (functionToApplied,array){
 }
 
 
-const reducer = function (functionToApplied,array,initialValue = 0){
+const reduce = function (reducer,array,initialValue = 0){
   let result = 0;
   for(let element of array){
-    result = functionToApplied (initialValue,element)
+    result = reducer(initialValue,element)
     initialValue = result;
   }
   return result;
 }
 
-exports.mapper = mapper;
-exports.filterer = filterer;
-exports.reducer = reducer;
+exports.map = map;
+exports.filter = filter;
+exports.reduce = reduce;
