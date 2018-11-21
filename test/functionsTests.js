@@ -10,6 +10,12 @@ const identity = function(element){return element}
 
 const decrement = function(number){return number - 1}
 
+const isOdd = function(number){return number%2 != 0}
+
+const perfectSquare = function(number){
+  return  Math.sqrt(number)*Math.sqrt(number) == number;
+}
+
 describe("Mapper function",function(){
   it("should return array by adding five to element",function(){
     assert.deepStrictEqual(mapper(addFive,[1,2,3]),[6,7,8]);
@@ -28,4 +34,21 @@ describe("Mapper function",function(){
   });
 });
 
+describe("Filter function", function(){
+  it("should return empty array",function(){
+    assert.deepStrictEqual(filterer(isOdd,[]),[]);
+  });
+
+  it("should return array of odd numbers in given array",function(){
+    assert.deepStrictEqual(filterer(isOdd,[1,2,3]),[1,3]);
+  });
+
+  it("should return empty array",function(){
+    assert.deepStrictEqual(filterer(perfectSquare,[]),[]);
+  });
+
+  it("should return array of perfect square numbers in given array",function(){
+    assert.deepStrictEqual(filterer(perfectSquare,[1,2,4,16]),[1,4,16]);
+  });
+});
 

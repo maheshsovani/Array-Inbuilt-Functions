@@ -6,4 +6,15 @@ const mapper = function (functionToApplied,array){
   return outputArray;
 }
 
+const filterer = function (functionToApplied,array){
+  let outputArray = [];
+  for(let index in array){
+    if(functionToApplied (array[index])){
+      outputArray.push(array[index])
+    }
+  }
+  return outputArray;
+}
+
 exports.mapper = mapper;
+exports.filterer = filterer;
