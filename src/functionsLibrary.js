@@ -18,12 +18,15 @@ const filter = function (predicate,array){
 
 
 const reduce = function (reducer,array,initialValue = 0){
-  let result = 0;
-  for(let element of array){
-    result = reducer(initialValue,element)
-    initialValue = result;
+  let startingIndex = 0;
+  if(!initialValue){
+    initialValue = array[0];
+    startingIndex = 1;
   }
-  return result;
+  for(let index = startingIndex ; index<array.length ; index++){
+    initialValue = reducer(initialValue,array[index])
+  }
+  return initialValue;
 }
 
 exports.map = map;

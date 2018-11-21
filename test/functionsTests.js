@@ -51,8 +51,8 @@ describe("Filter function", function(){
 });
 
 describe("reduce function", function(){
-  it("empty array should return 0",function(){
-  assert.deepStrictEqual(reduce(greater,[]),0);
+  it("empty array should return nothing",function(){
+  assert.deepStrictEqual(reduce(greater,[]),);
   });
 
   it("array with single element should return the containing element",function(){
